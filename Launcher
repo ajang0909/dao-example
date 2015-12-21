@@ -1,0 +1,16 @@
+/* File: Launcher.java
+ * Author: Stanley Pieda
+ * Date: 2015
+ * Description: Starter code for Lab Assignment 4 
+ */
+public class Launcher {
+
+	/**
+	 * Entry point for application
+	 * @param args Command line arguments (not used)
+	 */
+	public static void main(String[] args) {
+		(new SimpleTest()).runTest();
+	}
+
+}
