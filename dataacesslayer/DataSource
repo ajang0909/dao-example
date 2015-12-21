@@ -1,0 +1,35 @@
+package dataaccesslayer;
+
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Connection;
+
+
+/**
+ * DataSource class that establishes connection to database using scott/tiger login information.
+ * @author AJang
+ *
+ */
+public class DataSource {
+	private Connection connection = null;
+	private String connectionString = "jdbc:mysql://localhost/todolist";
+	private String userName = "scott";
+	private String password = "tiger";
+	
+	public DataSource(){	}
+	
+	/**
+	 * createConnection method that grabs the information from instance variables to establish connection to database.
+	 */
+	public Connection createConnection(){
+		try{
+			if(connection != null)
+				System.out.println("Cannot creat new connection, one exists already");
+			else
+				connection = DriverManager.getConnection(connectionString, userName, password);
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		return connection;
+	}
+}
