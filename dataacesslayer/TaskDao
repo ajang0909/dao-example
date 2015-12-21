@@ -1,0 +1,21 @@
+package dataaccesslayer;
+import java.util.List;
+import datatransferobjects.Task;
+
+/**
+ * TaskDao Interface used between TaskBusinessLogic and Interface Implementation
+ * @author AJang
+ *
+ */
+public interface TaskDao {
+	
+	public List<Task> getAllTasks();
+	
+	public Task getTaskById(Integer taskId);
+	
+	public void updateTask(Task task);
+	
+	public void deleteTask(Task task);
+
+	public void addTask(Task task);
+}
