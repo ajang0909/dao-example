@@ -1,0 +1,41 @@
+package businesslayer;
+
+
+/**
+ * ValidationException Class extending Exception class define exceptions unique to program.
+ * @author AJang
+ *
+ */
+public class ValidationException extends Exception {
+	/**
+	 * Default constructor for exception
+	 */
+	public ValidationException(){
+		super("Data not in valid format");
+	}
+	
+	/**
+	 * Constructor for an exception with a String message, calls the superclass constructor
+	 * @param message String for output message
+	 */
+	public ValidationException(String message){
+		super(message);
+	}
+	
+	/**
+	 * Constructor for throwable exception with String message, calls superclass
+	 * @param message  String for output message
+	 * @param throwable containing throwable clause from induced thread
+	 */
+	public ValidationException(String message, Throwable throwable){
+		super(message, throwable);
+	}
+	
+	/**
+	 * Constructor for throwable exception
+	 * @param throwable containing throwable clause from induced thread
+	 */
+	public ValidationException(Throwable throwable){
+		super(throwable);
+	}
+}
