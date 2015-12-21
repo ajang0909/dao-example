@@ -1,0 +1,108 @@
+package datatransferobjects;
+import java.sql.Date;
+
+/**
+ * Task Class used as a reference for modifying database.
+ * @author AJang
+ *
+ */
+public class Task {
+	/**
+	 * Instance variable corresponding to primary key of table
+	 */
+	private Integer taskId;
+	/**
+	 * Instance variable corresponding to column in table with same name
+	 */
+	private String title;
+	/**
+	 * Instance variable corresponding to column in table with same name
+	 */
+	private String priority;
+	/**
+	 * Instance variable corresponding to column in table with same name
+	 */
+	private Boolean isComplete=false;
+	/**
+	 * Instance variable corresponding to column in table with same name
+	 */
+	private Date dateCompleted;
+	/**
+	 * Instance variable corresponding to column in table with same name
+	 */
+	private String note;
+	
+	/**
+	 * getTaskId getter method used to return designated field
+	 */
+	public Integer getTaskId(){
+		return taskId;
+	}
+	/**
+	 * setTaskId setter method used to augment designated instance variable of object
+	 */
+	public void setTaskId(Integer taskId){
+		this.taskId = taskId;
+	}
+	/**
+	 * getTitle getter method used to return designated field
+	 */
+	public String getTitle(){
+		return title;
+	}
+	/**
+	 * setTitle setter method used to augment designated instance variable of object
+	 */
+	public void setTitle(String title){
+		this.title = title;
+	}
+	/**
+	 * getPriority getter method used to return designated field
+	 */
+	public String getPriority(){
+		return priority;
+	}
+	/**
+	 * setPriority setter method used to augment designated instance variable of object
+	 */
+	public void setPriority(String priority){
+		this.priority = priority;
+	}
+	/**
+	 * getIsComplete getter method used to return designated field
+	 */
+	public Boolean getIsComplete(){
+		return isComplete;
+	}
+	/**
+	 * setIsComplete setter method used to augment designated instance variable of object
+	 */
+	public void setIsComplete(Boolean isComplete){
+		this.isComplete = isComplete;
+	}
+	/**
+	 * getDateCompleted getter method used to return designated field
+	 */
+	public Date getDateCompleted(){
+		return dateCompleted;
+	}
+	/**
+	 * setDateCompleted setter method used to augment designated instance variable of object
+	 */
+	public void setDateCompleted(Date dateCompleted){
+		this.dateCompleted = dateCompleted;
+	}
+	/**
+	 * getNote getter method used to return designated field
+	 */
+	public String getNote(){
+		return note;
+	}
+	/**
+	 * setNote setter method used to augment designated instance variable of object
+	 */
+	public void setNote(String note){
+		this.note = note;
+	}
+	
+}
