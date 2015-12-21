@@ -1,0 +1,145 @@
+package businesslayer;
+import java.sql.Date;
+import java.util.List;
+
+import dataaccesslayer.TaskDao;
+import dataaccesslayer.TaskDaoImpl;
+import datatransferobjects.Task;
+
+/**
+ * TaskBusinessLogic Class, calls TaskDao interface to set up values for Task object. Handles exceptions.
+ * @author AJang
+ *
+ */
+public class TaskBusinessLogic {
+	/**
+	 * TITLE_MAX_LENGTH constant used to limit length of Title column in SQL Task table.
+	 */
+	private final static int TITLE_MAX_LENGTH = 50;
+	/**
+	 * PRIORITY_MAX_LENGTH constant used to limit length of Priority column in SQL Task table.
+	 */
+	private final static int PRIORITY_MAX_LENGTH = 6;
+	/**
+	 * NOTE_MAX_LENGTH constant used to limit length of Note column in SQL Task table.
+	 */
+	private final static int NOTE_MAX_LENGTH = 250;
+	
+	private TaskDao taskDao = null;
+	
+	/**
+	 * Default constructor for class that instantiates TaskDao Interface
+	 */
+	public TaskBusinessLogic(){	taskDao = new TaskDaoImpl();	}
+	
+	/**
+	 * Call corresponding method in TaskDao Interface to return full list of Task entries in database
+	 */
+	public List<Task> getAllTasks(){
+		return taskDao.getAllTasks();
+	}
+	
+	/**
+	 * Calls corresponding method in TaskDao Interface to return single entry in database with specific id
+	 * @param taskId primary key of table in database
+	 */
+	public Task getTaskById(int taskId){
+		return taskDao.getTaskById(taskId);
+	}
+	
+	/**
+	 * Calls corresponding method in TaskDao Interface to add an entry into table of database, throws ValidationException to deal with invalid entries, calls clean task and validate methods to ensure
+	 * values fall within designated limits defined by constants in class
+	 * @param task entry to be added to database
+	 */
+	public void addTask(Task task) throws ValidationException{
+		cleanTask(task);
+		validateTask(task);
+		taskDao.addTask(task);
+	}
+	/**
+	 * Calls corresponding method in TaskDao Interface to update an entry in the table of database, throws ValidationException to deal with invalid entries, calls clean task and validate methods to ensure
+	 * values fall within designated limits defined by constants in class
+	 * @param task entry to be updated to database
+	 */
+	public void updateTask(Task task) throws ValidationException{
+		cleanTask(task);
+		validateTask(task);
+		taskDao.updateTask(task);
+	}
+	/**
+	 * Calls corresponding method in TaskDao Interface to delete an entry from table of database
+	 * @param task entry to be deleted from database
+	 */
+	public void deleteTask(Task task){
+		taskDao.deleteTask(task);
+	}
+	
+	
+	/**
+	 * cleanTask method, calls three separate methods to clean corresponding columns of table entry
+	 * @param task entry to be cleaned
+	 */
+	private void cleanTask(Task task){
+		task.setTitle(cleanString(task.getTitle()));
+		task.setPriority(cleanString(task.getPriority()));
+		task.setNote(cleanString(task.getNote()));
+	}
+	
+	/**
+	 * cleanString method used to ensure null values are filling columns
+	 * @param data : String in question
+	 */
+	private String cleanString(String data){
+		String cleanString;
+		if (data != null){
+			cleanString = data;
+			return cleanString;
+		}
+		else return null;
+	}
+	
+	/**
+	 * validateTask method calls two separate methods to validate each column in task entry 
+	 */
+	private void validateTask(Task task)throws ValidationException{
+		validateString(task.getTitle(), "Title", TITLE_MAX_LENGTH, false);
+		validateString(task.getPriority(), "Priority", PRIORITY_MAX_LENGTH, false);
+		validateString(task.getNote(), "Note", NOTE_MAX_LENGTH, true);
+		validateDate(task.getDateCompleted());
+	}
+	
+	/**
+	 * validateString method used to ensure values that are not supposed to be null are handled by Exception handlers
+	 * @param value column entry needing to be verified
+	 * @param fieldName name of column of entry to be verified
+	 * @param maxLength corresponding constant used to limit length of entry
+	 * @param isNullAllowed boolean used to determine whether an entry is allowed to be null
+	 */
+	private void validateString(String value, String fieldName,
+			int maxLength, boolean isNullAllowed) throws ValidationException{
+		if(value==null && isNullAllowed){
+			return;
+		}
+		else if(value==null && !isNullAllowed){
+			throw new ValidationException(String.format("%s cannot be null", 
+					fieldName));
+		}
+		else if(value.length()==0){
+			throw new ValidationException(String.format("%s cannot be empty or only whitespace",
+					fieldName));
+		}
+		else if(value.length()>maxLength){
+			throw new ValidationException(String.format("%s cannot exceed %d characters",
+					fieldName, maxLength));
+		}
+	}
+	
+	/**
+	 * validateDate method used to ensure dates are not placed in the future.
+	 */
+	private void validateDate(Date value)throws ValidationException{ }
+	
+	
+	
+}
